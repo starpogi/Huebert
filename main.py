@@ -2,6 +2,7 @@
 import requests
 import json
 import time
+import random
 
 HOST = '192.168.1.205'
 
@@ -70,7 +71,7 @@ def rgb_to_hsv(red, green, blue):
    delta = c_max - c_min
    
    # Hue   
-   if delta == 0:
+   if not delta:
       hue = 0
    else:
       if c_max == r_prime:
@@ -86,7 +87,7 @@ def rgb_to_hsv(red, green, blue):
       hue = 60.0 * multiplier
       
    # Saturation
-   if c_max == 0:
+   if not c_max:
       saturation = 0
    else:
       saturation = delta / float(c_max)
@@ -124,8 +125,14 @@ def auth_jb():
 if __name__ == '__main__':
    auth_jb()
    
-   h, s, v = rgb_to_hsv(200, 130, 128)
-   set_hsv(h, s, v)
+   while True:
+      r = random.randint(0, 255)
+      g = random.randint(0, 255)
+      b = random.randint(0, 255)
+      
+      h, s, v = rgb_to_hsv(r, g, b)
+      set_hsv(h, s, v)
+      time.sleep(3.5)
    
    #for x in range(0, 65535, 5):
    #   
